@@ -9,8 +9,8 @@ import java.io.IOException;
 
 public class GuiBackground extends JPanel
 {
-    public float progress = 0.0f;
-    public int animationID = -1;
+    private float progress = 0.0f;
+    private int animationID = -1;
 
     public Image background;
 
@@ -22,14 +22,14 @@ public class GuiBackground extends JPanel
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        g.drawImage(background, 0, 0, background.getWidth(null), background.getHeight(null) * ((int) ((animationID == 0 ? progress : 1) * 100)) / 100, null);
+        g.drawImage(background, 0, 0, background.getWidth(null), background.getHeight(null) * ((int) (getProgress(0) * 100)) / 100, null);
 
         updateUI();
     }
 
-    public void animate(int id)
+    public void animate(int id, int time)
     {
-        final int animationTime = 1000;
+        final int animationTime = time;
         int framesPerSecond = 60;
         int delay = 1000 / framesPerSecond;
         final long start = System.currentTimeMillis();
@@ -51,5 +51,10 @@ public class GuiBackground extends JPanel
         });
         animationID = id;
         timer.start();
+    }
+
+    public float getProgress(int id)
+    {
+        return animationID == id ? progress : 1;
     }
 }

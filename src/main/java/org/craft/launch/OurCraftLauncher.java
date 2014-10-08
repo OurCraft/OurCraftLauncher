@@ -41,7 +41,7 @@ public class OurCraftLauncher extends JFrame
         setContentPane(background);
         setVisible(true);
 
-        background.animate(0);
+        background.animate(0, 1000);
     }
 
     public static void main(String[] args)
