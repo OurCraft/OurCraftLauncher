@@ -28,11 +28,11 @@ public class GuiBackground extends JPanel
         imageID = random.nextInt(backgrounds.length);
 
         passwordField = new JPasswordField();
-        passwordField.setSize(100, 25);
+        passwordField.setSize(200, 25);
         add(passwordField);
 
         textField = new JTextField();
-        textField.setSize(100, 25);
+        textField.setSize(200, 25);
         add(textField);
     }
 
@@ -40,10 +40,10 @@ public class GuiBackground extends JPanel
     {
         super.paintComponent(g);
         g.drawImage(backgrounds[imageID], 0, 0, getWidth(), getHeight(), null);
-        g.drawImage(logo, 0, 0, logo.getWidth(null), logo.getHeight(null) * ((int) (OurCraftLauncher.instance.logoAnimation.getProgress() * 100)) / 100, null);
+        g.drawImage(logo, (getWidth() / 2) - (logo.getWidth(null) / 2), 0, logo.getWidth(null), logo.getHeight(null) * ((int) (OurCraftLauncher.instance.logoAnimation.getProgress() * 100)) / 100, null);
 
-        passwordField.setLocation(-passwordField.getSize().width, 100);
-        textField.setLocation(-textField.getSize().width, 200);
+        passwordField.setLocation(-passwordField.getSize().width + (int) (passwordField.getWidth() * OurCraftLauncher.instance.passAnimation.getProgress()), 480 - 50 - 10);
+        textField.setLocation(-textField.getSize().width + (int) (textField.getWidth() * OurCraftLauncher.instance.loginAnimation.getProgress()), 480 - 10 - 50 - 10 - 25);
 
         updateUI();
     }

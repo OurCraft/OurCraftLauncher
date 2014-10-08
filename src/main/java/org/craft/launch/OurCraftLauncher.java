@@ -19,7 +19,7 @@ public class OurCraftLauncher extends JFrame
     public JsonRootNode config;
     public GuiBackground background;
 
-    public Animation logoAnimation;
+    public Animation logoAnimation, loginAnimation, passAnimation;
 
     public OurCraftLauncher() throws Exception
     {
@@ -44,7 +44,14 @@ public class OurCraftLauncher extends JFrame
         setContentPane(background);
         setVisible(true);
 
-        logoAnimation = Animation.animate(1000);
+        logoAnimation = Animation.newAnimation(1000);
+        logoAnimation.startAnimation();
+
+        loginAnimation = Animation.newAnimation(1000);
+        loginAnimation.startAnimation();
+
+        passAnimation = Animation.newAnimation(1500);
+        passAnimation.startAnimation();
     }
 
     public static void main(String[] args)

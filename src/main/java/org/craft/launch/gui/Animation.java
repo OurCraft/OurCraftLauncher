@@ -6,17 +6,12 @@ import java.awt.event.ActionListener;
 
 public class Animation
 {
-    private static int duration;
-    private static float progress;
+    private int duration;
+    private float progress;
 
     public Animation(int d)
     {
         duration = d;
-    }
-
-    public int getDuration()
-    {
-        return duration;
     }
 
     public float getProgress()
@@ -24,15 +19,8 @@ public class Animation
         return progress;
     }
 
-    private void setProgress(float p)
+    public void startAnimation()
     {
-        progress = p;
-    }
-
-    public static Animation animate(int d)
-    {
-        final Animation animation = new Animation(d);
-
         int framesPerSecond = 60;
         int delay = 1000 / framesPerSecond;
         final long start = System.currentTimeMillis();
@@ -43,12 +31,15 @@ public class Animation
             {
                 final long now = System.currentTimeMillis();
                 final long elapsed = now - start;
-                animation.setProgress((float) elapsed / animation.getDuration());
-                if (elapsed >= animation.getDuration()) timer.stop();
+                progress = ((float) elapsed / duration);
+                if (elapsed >= duration) timer.stop();
             }
         });
         timer.start();
+    }
 
-        return animation;
+    public static Animation newAnimation(int duration)
+    {
+        return new Animation(duration);
     }
 }
