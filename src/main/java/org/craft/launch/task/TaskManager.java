@@ -22,7 +22,7 @@ public class TaskManager
     {
         for (ITask task : tasks)
         {
-            System.out.println("[OurCraft Launcher] Starting task " + task.getTaskName() + "...");
+            System.out.println("[OurCraft Launcher] " + task.getTaskName() + "...");
             if (task.shouldExecute()) task.execute();
         }
     }

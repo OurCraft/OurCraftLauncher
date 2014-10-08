@@ -4,6 +4,7 @@ import argo.jdom.JdomParser;
 import argo.jdom.JsonRootNode;
 import org.craft.launch.gui.GuiBackground;
 import org.craft.launch.task.TaskManager;
+import org.craft.launch.task.tasks.TaskDownloadLibraries;
 
 import javax.swing.*;
 import java.io.InputStreamReader;
@@ -22,7 +23,10 @@ public class OurCraftLauncher extends JFrame
         instance = this;
 
         taskManager = new TaskManager();
-        config = new JdomParser().parse(new InputStreamReader(new URL("http://localhost/").openStream()));
+        config = new JdomParser().parse(new InputStreamReader(new URL("https://raw.githubusercontent.com/OurCraft/OurCraftLauncher/master/ourcraft.json").openStream()));
+
+        taskManager.addTasksToList(new TaskDownloadLibraries());
+        taskManager.startTasks();
 
         setTitle("OurCraft Launcher");
         setSize(854, 480);
