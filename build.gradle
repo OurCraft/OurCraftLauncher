@@ -52,6 +52,7 @@ compileJava.dependsOn processVersion
 
 dependencies {
     compile 'net.sourceforge.argo:argo:3.12'
+    compile 'commons-io:commons-io:2.4'
 }
 
 jar {
