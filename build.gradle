@@ -51,7 +51,7 @@ compileJava.source = sourceSets.filtered.java
 compileJava.dependsOn processVersion 
 
 dependencies {
-    
+    compile 'net.sourceforge.argo:argo:3.12'
 }
 
 jar {
