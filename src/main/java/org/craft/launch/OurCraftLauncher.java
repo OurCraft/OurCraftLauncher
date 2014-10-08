@@ -2,6 +2,7 @@ package org.craft.launch;
 
 import argo.jdom.JdomParser;
 import argo.jdom.JsonRootNode;
+import org.craft.launch.gui.Animation;
 import org.craft.launch.gui.GuiBackground;
 import org.craft.launch.task.TaskManager;
 import org.craft.launch.task.tasks.TaskDownloadLibraries;
@@ -17,6 +18,8 @@ public class OurCraftLauncher extends JFrame
     public TaskManager taskManager;
     public JsonRootNode config;
     public GuiBackground background;
+
+    public Animation logoAnimation;
 
     public OurCraftLauncher() throws Exception
     {
@@ -35,13 +38,13 @@ public class OurCraftLauncher extends JFrame
         setResizable(false);
 
         background = new GuiBackground();
-        background.setLayout(null);
         background.setDoubleBuffered(true);
+        background.setLayout(null);
 
         setContentPane(background);
         setVisible(true);
 
-        background.animate(0, 1000);
+        logoAnimation = Animation.animate(1000);
     }
 
     public static void main(String[] args)
