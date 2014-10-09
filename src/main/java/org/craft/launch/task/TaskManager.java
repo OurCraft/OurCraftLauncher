@@ -1,8 +1,6 @@
 package org.craft.launch.task;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class TaskManager
 {
@@ -15,15 +13,16 @@ public class TaskManager
 
     public void addTasksToList(ITask... t)
     {
-        tasks = Arrays.asList(t);
+        tasks.addAll(Arrays.asList(t));
     }
 
     public void startTasks()
     {
-        for (ITask task : tasks)
+        for(ITask task : tasks)
         {
             System.out.println("[OurCraft Launcher] " + task.getTaskName() + "...");
-            if (task.shouldExecute()) task.execute();
+            if(task.shouldExecute())
+                task.execute();
         }
     }
 }

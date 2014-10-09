@@ -1,25 +1,25 @@
 package org.craft.launch;
 
-import argo.jdom.JdomParser;
-import argo.jdom.JsonRootNode;
-import org.craft.launch.gui.Animation;
-import org.craft.launch.gui.GuiBackground;
-import org.craft.launch.task.TaskManager;
-import org.craft.launch.task.tasks.TaskDownloadLibraries;
+import java.io.*;
+import java.net.*;
 
 import javax.swing.*;
-import java.io.InputStreamReader;
-import java.net.URL;
+
+import argo.jdom.*;
+
+import org.craft.launch.gui.*;
+import org.craft.launch.task.*;
+import org.craft.launch.task.tasks.*;
 
 public class OurCraftLauncher extends JFrame
 {
     public static OurCraftLauncher instance;
 
-    public TaskManager taskManager;
-    public JsonRootNode config;
-    public GuiBackground background;
+    public TaskManager             taskManager;
+    public JsonRootNode            config;
+    public GuiBackground           background;
 
-    public Animation logoAnimation, loginAnimation, passAnimation;
+    public Animation               logoAnimation, loginAnimation, passAnimation;
 
     public OurCraftLauncher() throws Exception
     {
@@ -58,9 +58,10 @@ public class OurCraftLauncher extends JFrame
     {
         try
         {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             new OurCraftLauncher();
         }
-        catch (Exception e)
+        catch(Exception e)
         {
             e.printStackTrace();
         }
