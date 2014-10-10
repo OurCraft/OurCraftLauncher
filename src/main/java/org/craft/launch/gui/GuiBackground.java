@@ -58,7 +58,8 @@ public class GuiBackground extends JPanel implements ActionListener
         textField.setLocation(-textField.getSize().width + (int) ((textField.getWidth() + 5) * OurCraftLauncher.instance.loginAnimation.getProgress()), 480 - 10 - 50 - 10 - 25);
         loginButton.setLocation(212, 480 - (int) (95 * OurCraftLauncher.instance.buttonAnimation.getProgress()));
 
-        g.drawString("Current task: " + OurCraftLauncher.instance.taskManager.getCurrentTaskProgress(), 0, 8);
+        g.drawString("Current task:                " + OurCraftLauncher.instance.taskManager.getCurrentTaskName(), 0, 8);
+        g.drawString("Current task progress: " + OurCraftLauncher.instance.taskManager.getCurrentTaskProgress(), 0, 18);
 
         updateUI();
     }
