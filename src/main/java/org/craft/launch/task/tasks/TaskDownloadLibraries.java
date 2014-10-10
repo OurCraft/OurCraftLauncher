@@ -31,7 +31,7 @@ public class TaskDownloadLibraries implements ITask
 
     public void execute()
     {
-        for(JsonNode node : OurCraftLauncher.instance.config.getArrayNode("libraries"))
+        for(JsonNode node : OurCraftLauncher.instance.remoteConfig.getArrayNode("libraries"))
         {
             String split[] = node.getStringValue().split(":");
             String path = split[0].replace('.', '/') + "/" + split[1] + "/" + split[2] + "/" + split[1] + "-" + split[2];

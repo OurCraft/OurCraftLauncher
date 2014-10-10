@@ -15,7 +15,7 @@ public class OurCraftLauncher extends JFrame
     public static OurCraftLauncher instance;
 
     public TaskManager      taskManager;
-    public JsonRootNode     config;
+    public JsonRootNode     remoteConfig;
     public GuiBackground    background;
 
     public Animation        logoAnimation, loginAnimation, passAnimation, buttonAnimation;
@@ -25,7 +25,7 @@ public class OurCraftLauncher extends JFrame
         instance = this;
 
         taskManager = new TaskManager();
-        config = new JdomParser().parse(new InputStreamReader(new URL("https://raw.githubusercontent.com/OurCraft/OurCraftLauncher/master/ourcraft.json").openStream()));
+        remoteConfig = new JdomParser().parse(new InputStreamReader(new URL("https://raw.githubusercontent.com/OurCraft/OurCraftLauncher/master/ourcraft.json").openStream()));
 
         setTitle("OurCraft Launcher");
         setSize(854, 480);

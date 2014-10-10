@@ -1,6 +1,8 @@
 package org.craft.launch.gui;
 
 import org.craft.launch.OurCraftLauncher;
+import org.craft.launch.gui.menu.Direction;
+import org.craft.launch.gui.menu.GuiBlock;
 import org.craft.launch.task.tasks.TaskDownloadLibraries;
 
 import javax.imageio.ImageIO;
@@ -16,6 +18,7 @@ public class GuiBackground extends JPanel implements ActionListener
     public PaintedPasswordField passwordField;
     public PaintedTextField textField;
     public JButton loginButton;
+    public GuiBlock[] grassBlocks, flowerBlocks;
 
     public Random random;
     public Image[] backgrounds;
@@ -33,11 +36,11 @@ public class GuiBackground extends JPanel implements ActionListener
 
         passwordField = new PaintedPasswordField(new ImageIcon(ImageIO.read(GuiBackground.class.getResourceAsStream("/field.png"))));
         passwordField.setSize(200, 25);
-        add(passwordField);
+        //add(passwordField);
 
         textField = new PaintedTextField(new ImageIcon(ImageIO.read(GuiBackground.class.getResourceAsStream("/field.png"))));
         textField.setSize(200, 25);
-        add(textField);
+        //add(textField);
 
         loginButton = new JButton(new ImageIcon(ImageIO.read(GuiBackground.class.getResourceAsStream("/play.png"))));
         loginButton.setSize(40, 60);
@@ -45,7 +48,13 @@ public class GuiBackground extends JPanel implements ActionListener
         loginButton.setContentAreaFilled(false);
         loginButton.setBorderPainted(false);
         loginButton.addActionListener(this);
-        add(loginButton);
+        //add(loginButton);
+
+        grassBlocks = new GuiBlock[14];
+        flowerBlocks = new GuiBlock[3];
+
+        for (int i = 0; i < grassBlocks.length; i++) grassBlocks[i] = new GuiBlock(new ImageIcon(ImageIO.read(GuiBackground.class.getResourceAsStream("/grass_side.png"))), 64 * i, 480 - 93, 64, 64);
+        for (int i = 0; i < flowerBlocks.length; i++) flowerBlocks[i] = new GuiBlock(new ImageIcon(ImageIO.read(GuiBackground.class.getResourceAsStream("/rose.png"))), grassBlocks[random.nextInt(grassBlocks.length)], Direction.UP);
     }
 
     public void paintComponent(Graphics g)
@@ -60,6 +69,9 @@ public class GuiBackground extends JPanel implements ActionListener
 
         g.drawString("Current task:                " + OurCraftLauncher.instance.taskManager.getCurrentTaskName(), 0, 8);
         g.drawString("Current task progress: " + OurCraftLauncher.instance.taskManager.getCurrentTaskProgress(), 0, 18);
+
+        for (GuiBlock block : grassBlocks) block.draw(g);
+        for (GuiBlock block : flowerBlocks) block.draw(g);
 
         updateUI();
     }
