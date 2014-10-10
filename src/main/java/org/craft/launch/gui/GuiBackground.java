@@ -54,7 +54,7 @@ public class GuiBackground extends JPanel implements ActionListener
         flowerBlocks = new GuiBlock[3];
 
         for (int i = 0; i < grassBlocks.length; i++) grassBlocks[i] = new GuiBlock(new ImageIcon(ImageIO.read(GuiBackground.class.getResourceAsStream("/grass_side.png"))), 64 * i, 480 - 93, 64, 64);
-        for (int i = 0; i < flowerBlocks.length; i++) flowerBlocks[i] = new GuiBlock(new ImageIcon(ImageIO.read(GuiBackground.class.getResourceAsStream("/rose.png"))), grassBlocks[random.nextInt(grassBlocks.length)], Direction.UP);
+        for (int i = 0; i < flowerBlocks.length; i++) flowerBlocks[i] = new GuiBlock(new ImageIcon(ImageIO.read(GuiBackground.class.getResourceAsStream("/rose.png"))), grassBlocks[random.nextInt(grassBlocks.length - 1)], Direction.UP);
     }
 
     public void paintComponent(Graphics g)
