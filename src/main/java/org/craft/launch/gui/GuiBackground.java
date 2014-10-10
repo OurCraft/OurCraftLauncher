@@ -10,8 +10,8 @@ import java.util.Random;
 
 public class GuiBackground extends JPanel
 {
-    public JPasswordField passwordField;
-    public JTextField textField;
+    public PaintedPasswordField passwordField;
+    public PaintedTextField textField;
     public JButton loginButton;
 
     public Random random;
@@ -28,16 +28,19 @@ public class GuiBackground extends JPanel
         for (int i = 0; i < backgrounds.length; i++) backgrounds[i] = ImageIO.read(GuiBackground.class.getResourceAsStream("/background" + i + ".png"));
         imageID = random.nextInt(backgrounds.length);
 
-        passwordField = new JPasswordField();
+        passwordField = new PaintedPasswordField(new ImageIcon(ImageIO.read(GuiBackground.class.getResourceAsStream("/field.png"))));
         passwordField.setSize(200, 25);
         add(passwordField);
 
-        textField = new JTextField();
+        textField = new PaintedTextField(new ImageIcon(ImageIO.read(GuiBackground.class.getResourceAsStream("/field.png"))));
         textField.setSize(200, 25);
         add(textField);
 
-        loginButton = new JButton();
+        loginButton = new JButton(new ImageIcon(ImageIO.read(GuiBackground.class.getResourceAsStream("/play.png"))));
         loginButton.setSize(40, 60);
+        loginButton.setOpaque(false);
+        loginButton.setContentAreaFilled(false);
+        loginButton.setBorderPainted(false);
         add(loginButton);
     }
 
