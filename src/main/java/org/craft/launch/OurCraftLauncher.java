@@ -1,29 +1,31 @@
 package org.craft.launch;
 
-import java.io.*;
-import java.net.*;
+import argo.jdom.JdomParser;
+import argo.jdom.JsonRootNode;
+import org.craft.launch.gui.Animation;
+import org.craft.launch.gui.GuiBackground;
+import org.craft.launch.task.TaskManager;
+import org.craft.launch.task.tasks.TaskDownloadLibraries;
 
 import javax.swing.*;
-
-import argo.jdom.*;
-
-import org.craft.launch.gui.*;
-import org.craft.launch.task.*;
-import org.craft.launch.task.tasks.*;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 public class OurCraftLauncher extends JFrame
 {
     public static OurCraftLauncher instance;
 
-    public TaskManager             taskManager;
-    public JsonRootNode            config;
-    public GuiBackground           background;
+    public TaskManager taskManager;
+    public JsonRootNode config;
+    public GuiBackground background;
 
-    public Animation               logoAnimation, loginAnimation, passAnimation;
+    public Animation logoAnimation, loginAnimation, passAnimation, buttonAnimation;
 
     public OurCraftLauncher() throws Exception
     {
         instance = this;
+
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         taskManager = new TaskManager();
         config = new JdomParser().parse(new InputStreamReader(new URL("https://raw.githubusercontent.com/OurCraft/OurCraftLauncher/master/ourcraft.json").openStream()));
@@ -44,7 +46,7 @@ public class OurCraftLauncher extends JFrame
         setContentPane(background);
         setVisible(true);
 
-        logoAnimation = Animation.newAnimation(1000);
+        logoAnimation = Animation.newAnimation(700);
         logoAnimation.startAnimation();
 
         loginAnimation = Animation.newAnimation(1000);
@@ -52,16 +54,18 @@ public class OurCraftLauncher extends JFrame
 
         passAnimation = Animation.newAnimation(1500);
         passAnimation.startAnimation();
+
+        buttonAnimation = Animation.newAnimation(1000);
+        buttonAnimation.startAnimation();
     }
 
     public static void main(String[] args)
     {
         try
         {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             new OurCraftLauncher();
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
