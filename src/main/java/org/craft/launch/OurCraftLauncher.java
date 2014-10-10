@@ -15,17 +15,15 @@ public class OurCraftLauncher extends JFrame
 {
     public static OurCraftLauncher instance;
 
-    public TaskManager taskManager;
-    public JsonRootNode config;
-    public GuiBackground background;
+    public TaskManager      taskManager;
+    public JsonRootNode     config;
+    public GuiBackground    background;
 
-    public Animation logoAnimation, loginAnimation, passAnimation, buttonAnimation;
+    public Animation        logoAnimation, loginAnimation, passAnimation, buttonAnimation;
 
     public OurCraftLauncher() throws Exception
     {
         instance = this;
-
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         taskManager = new TaskManager();
         config = new JdomParser().parse(new InputStreamReader(new URL("https://raw.githubusercontent.com/OurCraft/OurCraftLauncher/master/ourcraft.json").openStream()));
@@ -63,6 +61,7 @@ public class OurCraftLauncher extends JFrame
     {
         try
         {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             new OurCraftLauncher();
         }
         catch (Exception e)
