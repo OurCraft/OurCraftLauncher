@@ -1,15 +1,27 @@
 package org.craft.launch.task.tasks;
 
-import argo.jdom.*;
+import argo.jdom.JsonNode;
+import org.apache.commons.io.FileUtils;
+import org.craft.launch.OperatingSystem;
+import org.craft.launch.OurCraftLauncher;
+import org.craft.launch.task.ITask;
 
-import org.craft.launch.*;
-import org.craft.launch.task.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 public class TaskDownloadLibraries implements ITask
 {
+    public String taskProgress;
+
     public String getTaskName()
     {
         return "Downloading libraries";
+    }
+
+    public String getTaskProgress()
+    {
+        return taskProgress;
     }
 
     public boolean shouldExecute()
@@ -26,7 +38,21 @@ public class TaskDownloadLibraries implements ITask
             String name = split[1] + " " + split[2];
             path += ".jar";
 
-            System.out.println("[OurCraft Launcher] Downloading library " + name + " from " + "http://repo1.maven.org/maven2/" + path);
+            taskProgress = "Downloading library " + name + " from " + "http://repo1.maven.org/maven2/" + path;
+
+            try
+            {
+                if (!getDestDir(path).exists()) FileUtils.copyURLToFile(new URL("http://repo1.maven.org/maven2/" + path), getDestDir(path));
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
+    }
+
+    public File getDestDir(String path)
+    {
+        return new File(OperatingSystem.getOperatingSystem().getBaseDir() + File.separator + "libraries" + File.separator + path.replace('/', File.separatorChar));
     }
 }

@@ -1,14 +1,17 @@
 package org.craft.launch.gui;
 
 import org.craft.launch.OurCraftLauncher;
+import org.craft.launch.task.tasks.TaskDownloadLibraries;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Random;
 
-public class GuiBackground extends JPanel
+public class GuiBackground extends JPanel implements ActionListener
 {
     public PaintedPasswordField passwordField;
     public PaintedTextField textField;
@@ -41,6 +44,7 @@ public class GuiBackground extends JPanel
         loginButton.setOpaque(false);
         loginButton.setContentAreaFilled(false);
         loginButton.setBorderPainted(false);
+        loginButton.addActionListener(this);
         add(loginButton);
     }
 
@@ -54,6 +58,20 @@ public class GuiBackground extends JPanel
         textField.setLocation(-textField.getSize().width + (int) ((textField.getWidth() + 5) * OurCraftLauncher.instance.loginAnimation.getProgress()), 480 - 10 - 50 - 10 - 25);
         loginButton.setLocation(212, 480 - (int) (95 * OurCraftLauncher.instance.buttonAnimation.getProgress()));
 
+        g.drawString("Current task: " + OurCraftLauncher.instance.taskManager.getCurrentTaskProgress(), 0, 8);
+
         updateUI();
+    }
+
+    public void actionPerformed(ActionEvent e)
+    {
+        new Thread()
+        {
+            public void run()
+            {
+                OurCraftLauncher.instance.taskManager.addTasksToList(new TaskDownloadLibraries());
+                OurCraftLauncher.instance.taskManager.startTasks();
+            }
+        }.start();
     }
 }
