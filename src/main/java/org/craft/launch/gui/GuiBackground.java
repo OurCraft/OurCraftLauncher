@@ -89,6 +89,7 @@ public class GuiBackground extends JPanel implements ActionListener
                 public void run()
                 {
                     OurCraftLauncher.instance.taskManager.addTasksToList(new TaskDownloadLibraries());
+                    OurCraftLauncher.instance.taskManager.addTasksToList(new TaskLaunchGame(loginField.getText()));
                     OurCraftLauncher.instance.taskManager.startTasks();
                 }
             }.start();

@@ -39,6 +39,7 @@ public class TaskDownloadLibraries implements ITask
 
             taskProgress = "Downloading library " + name + " from " + "http://repo1.maven.org/maven2/" + path;
 
+            System.out.println("[OurCraft Launcher] " + taskProgress);
             try
             {
                 if(!getDestDir(path).exists())
@@ -53,9 +54,12 @@ public class TaskDownloadLibraries implements ITask
         {
             String version = OurCraftLauncher.instance.remoteConfig.getStringValue("version");
             String path = "OurCraft-" + version + ".jar";
-            File ourcraftBinFile = new File(OperatingSystem.getOperatingSystem().getBaseDir() + File.separator + "versions" + File.separator + version + path);
+            File ourcraftBinFile = new File(OperatingSystem.getOperatingSystem().getBaseDir() + File.separator + "versions" + File.separator + version + File.separator + path);
+            String url = "https://drone.io/github.com/OurCraft/OurCraft/files/build/libs/" + path;
+            taskProgress = "Downloading " + path + " from " + url;
+            System.out.println("[OurCraft Launcher] " + taskProgress);
             if(!ourcraftBinFile.exists())
-                FileUtils.copyURLToFile(new URL("https://drone.io/github.com/OurCraft/OurCraft/files/" + path), ourcraftBinFile);
+                FileUtils.copyURLToFile(new URL(url), ourcraftBinFile);
         }
         catch(Exception e)
         {

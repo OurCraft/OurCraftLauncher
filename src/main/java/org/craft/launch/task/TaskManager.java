@@ -5,7 +5,7 @@ import java.util.*;
 public class TaskManager
 {
     private List<ITask> tasks;
-    private ITask currentTask;
+    private ITask       currentTask;
 
     public TaskManager()
     {
@@ -14,7 +14,6 @@ public class TaskManager
 
     public void addTasksToList(ITask... t)
     {
-        tasks.clear();
         tasks.addAll(Arrays.asList(t));
     }
 
