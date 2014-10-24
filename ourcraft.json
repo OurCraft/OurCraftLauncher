@@ -1,14 +1,20 @@
 {
-    "version":"<put version here>",
+    "version":"InDev-0.1",
     "libraries":
     [
         "org.lwjgl.lwjgl:lwjgl_util:2.9.1",
         "org.lwjgl.lwjgl:lwjgl:2.9.1",
+        
         "io.netty:netty-all:4.0.23.Final",
+
         "com.google.guava:guava:18.0",
         "com.google.code.gson:gson:2.3",
+
         "org.reflections:reflections:0.9.9",
         "org.javassist:javassist:3.18.2-GA",
-        "org.luaj:luaj-jse:3.0"
+
+        "org.luaj:luaj-jse:3.0",
+        
+        "trove:trove:1.0.2"
     ]
 }

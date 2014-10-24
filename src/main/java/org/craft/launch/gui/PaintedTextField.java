@@ -1,7 +1,8 @@
 package org.craft.launch.gui;
 
-import javax.swing.*;
 import java.awt.*;
+
+import javax.swing.*;
 
 public class PaintedTextField extends JTextField
 {
@@ -9,14 +10,11 @@ public class PaintedTextField extends JTextField
 
     public PaintedTextField(ImageIcon i)
     {
-        setOpaque(false);
-        setBorder(null);
         image = i.getImage();
     }
 
     public void paint(Graphics g)
     {
-        g.drawImage(image, 0, 0, this);
         super.paint(g);
     }
 }

@@ -1,24 +1,26 @@
 package org.craft.launch;
 
-import argo.jdom.JdomParser;
-import argo.jdom.JsonRootNode;
-import org.craft.launch.gui.Animation;
-import org.craft.launch.gui.GuiBackground;
-import org.craft.launch.task.TaskManager;
+import java.io.*;
+import java.net.*;
 
 import javax.swing.*;
-import java.io.InputStreamReader;
-import java.net.URL;
+
+import argo.jdom.*;
+
+import org.craft.launch.gui.*;
+import org.craft.launch.task.*;
 
 public class OurCraftLauncher extends JFrame
 {
+    private static final long      serialVersionUID = -1131125583603664129L;
+
     public static OurCraftLauncher instance;
 
-    public TaskManager      taskManager;
-    public JsonRootNode     remoteConfig;
-    public GuiBackground    background;
+    public TaskManager             taskManager;
+    public JsonRootNode            remoteConfig;
+    public GuiBackground           background;
 
-    public Animation        logoAnimation, loginAnimation, passAnimation, buttonAnimation;
+    public Animation               logoAnimation, loginAnimation, passAnimation, buttonAnimation;
 
     public OurCraftLauncher() throws Exception
     {
@@ -43,13 +45,13 @@ public class OurCraftLauncher extends JFrame
         logoAnimation = Animation.newAnimation(700);
         logoAnimation.startAnimation();
 
-        loginAnimation = Animation.newAnimation(1000);
+        loginAnimation = Animation.newAnimation(500);
         loginAnimation.startAnimation();
 
-        passAnimation = Animation.newAnimation(1500);
+        passAnimation = Animation.newAnimation(750);
         passAnimation.startAnimation();
 
-        buttonAnimation = Animation.newAnimation(1000);
+        buttonAnimation = Animation.newAnimation(500);
         buttonAnimation.startAnimation();
     }
 
@@ -60,7 +62,7 @@ public class OurCraftLauncher extends JFrame
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             new OurCraftLauncher();
         }
-        catch (Exception e)
+        catch(Exception e)
         {
             e.printStackTrace();
         }

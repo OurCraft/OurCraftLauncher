@@ -1,14 +1,13 @@
 package org.craft.launch.task.tasks;
 
-import argo.jdom.JsonNode;
-import org.apache.commons.io.FileUtils;
-import org.craft.launch.OperatingSystem;
-import org.craft.launch.OurCraftLauncher;
-import org.craft.launch.task.ITask;
+import java.io.*;
+import java.net.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
+import argo.jdom.*;
+
+import org.apache.commons.io.*;
+import org.craft.launch.*;
+import org.craft.launch.task.*;
 
 public class TaskDownloadLibraries implements ITask
 {
@@ -42,12 +41,25 @@ public class TaskDownloadLibraries implements ITask
 
             try
             {
-                if (!getDestDir(path).exists()) FileUtils.copyURLToFile(new URL("http://repo1.maven.org/maven2/" + path), getDestDir(path));
+                if(!getDestDir(path).exists())
+                    FileUtils.copyURLToFile(new URL("http://repo1.maven.org/maven2/" + path), getDestDir(path));
             }
-            catch (IOException e)
+            catch(IOException e)
             {
                 e.printStackTrace();
             }
+        }
+        try
+        {
+            String version = OurCraftLauncher.instance.remoteConfig.getStringValue("version");
+            String path = "OurCraft-" + version + ".jar";
+            File ourcraftBinFile = new File(OperatingSystem.getOperatingSystem().getBaseDir() + File.separator + "versions" + File.separator + version + path);
+            if(!ourcraftBinFile.exists())
+                FileUtils.copyURLToFile(new URL("https://drone.io/github.com/OurCraft/OurCraft/files/" + path), ourcraftBinFile);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
         }
     }
 
