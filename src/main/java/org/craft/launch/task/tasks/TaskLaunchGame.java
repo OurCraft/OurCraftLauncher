@@ -1,9 +1,8 @@
 package org.craft.launch.task.tasks;
 
 import java.io.*;
-import java.lang.reflect.*;
-import java.net.*;
 import java.util.*;
+import java.util.Map.Entry;
 
 import argo.jdom.*;
 
@@ -43,29 +42,41 @@ public class TaskLaunchGame implements ITask
     {
         String version = OurCraftLauncher.instance.remoteConfig.getStringValue("version");
         String filePath = OurCraftLauncher.getFolder().getAbsolutePath() + File.separator + "versions" + File.separator + version + File.separator + "OurCraft-" + version + ".jar";
-        System.out.print("Adding " + filePath + " to classpath");
         try
         {
+            String classpath = "";
+            String classpathSeparator = OperatingSystem.getOS() == OperatingSystem.WINDOWS ? ";" : ":";
             for(JsonNode node : OurCraftLauncher.instance.remoteConfig.getArrayNode("libraries"))
             {
                 String split[] = node.getStringValue().split(":");
                 String path = split[0].replace('.', '/') + "/" + split[1] + "/" + split[2] + "/" + split[1] + "-" + split[2];
                 path += ".jar";
-                injectIntoClasspath(OurCraftLauncher.getFolder().getAbsolutePath() + File.separator + "libraries" + File.separator + path.replace('/', File.separatorChar));
+                classpath += OurCraftLauncher.getFolder().getAbsolutePath() + File.separator + "libraries" + File.separator + path.replace('/', File.separatorChar) + classpathSeparator;
             }
-            injectIntoClasspath(filePath);
-            injectIntoClasspath(OurCraftLauncher.getFolder().getAbsolutePath() + File.separator + "libraries" + File.separator + "sponge/SpongeAPI.jar");
+            classpath += OurCraftLauncher.getFolder().getAbsolutePath() + "/libraries/sponge/SpongeAPI.jar" + classpathSeparator;
 
-            LWJGLSetup.load(new File(OurCraftLauncher.getFolder(), "natives"));
+            classpath += filePath + classpathSeparator;
             String main = OurCraftLauncher.instance.remoteConfig.getStringValue("main");
-            Class<?> clazz = Class.forName(main.split(":")[0]);
+            LWJGLSetup.load(new File(OurCraftLauncher.getFolder(), "natives"));
             HashMap<String, String> properties = new HashMap<String, String>();
             properties.put("username", username);
             properties.put("lang", "en_US");
             properties.put("gamefolder", OurCraftLauncher.getFolder().getAbsolutePath());
-            Method startMethod = clazz.getMethod(main.split(":")[1], HashMap.class);
-            startMethod.setAccessible(true);
-            startMethod.invoke(null, properties);
+            properties.put("nativesFolder", OurCraftLauncher.getFolder().getAbsolutePath() + "/natives/");
+            ArrayList<String> launchArgs = new ArrayList<String>();
+            launchArgs.add("java");
+            launchArgs.add("-cp");
+            launchArgs.add(classpath);
+            launchArgs.add(main);
+            for(Entry<String, String> entry : properties.entrySet())
+            {
+                launchArgs.add("--" + entry.getKey());
+                launchArgs.add(entry.getValue());
+            }
+
+            LWJGLSetup.load(new File(OurCraftLauncher.getFolder().getAbsolutePath() + "/natives/"));
+            ProcessBuilder processBuilder = new ProcessBuilder(launchArgs);
+            processBuilder.inheritIO().start();
         }
         catch(Exception e)
         {
@@ -74,17 +85,4 @@ public class TaskLaunchGame implements ITask
 
     }
 
-    private void injectIntoClasspath(String path) throws Exception
-    {
-        URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
-        Method addURL = URLClassLoader.class.getDeclaredMethod("addURL", new Class<?>[]
-        {
-                URL.class
-        });
-        addURL.setAccessible(true);
-        addURL.invoke(classLoader, new Object[]
-        {
-                new File(path).toURI().toURL()
-        });
-    }
 }
