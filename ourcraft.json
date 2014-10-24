@@ -19,7 +19,6 @@
 
         "trove:trove:1.0.2",
 
-        //SpongeAPI:
         "org.apache.logging.log4j:log4j-api:2.0-beta9",
         "com.google.guava:guava:16.0",
         "com.google.code.findbugs:jsr305:1.3.9"
