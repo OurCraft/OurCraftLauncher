@@ -61,6 +61,7 @@ public class TaskLaunchGame implements ITask
             Class<?> clazz = Class.forName(main.split(":")[0]);
             HashMap<String, String> properties = new HashMap<String, String>();
             properties.put("username", username);
+            properties.put("lang", "en_US");
             properties.put("gamefolder", OurCraftLauncher.getFolder().getAbsolutePath());
             Method startMethod = clazz.getMethod(main.split(":")[1], HashMap.class);
             startMethod.setAccessible(true);
