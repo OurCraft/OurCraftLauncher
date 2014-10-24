@@ -16,6 +16,8 @@ public class OurCraftLauncher extends JFrame
 
     public static OurCraftLauncher instance;
 
+    private static File            folder;
+
     public TaskManager             taskManager;
     public JsonRootNode            remoteConfig;
     public GuiBackground           background;
@@ -66,5 +68,20 @@ public class OurCraftLauncher extends JFrame
         {
             e.printStackTrace();
         }
+    }
+
+    public static File getFolder()
+    {
+        if(folder == null)
+        {
+            String appdata = System.getenv("APPDATA");
+            if(appdata != null)
+                folder = new File(appdata, ".ourcraft");
+            else
+                folder = new File(System.getProperty("user.home"), ".ourcraft");
+            if(!folder.exists())
+                folder.mkdirs();
+        }
+        return folder;
     }
 }

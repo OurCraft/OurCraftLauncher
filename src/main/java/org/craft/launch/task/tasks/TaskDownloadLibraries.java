@@ -54,7 +54,7 @@ public class TaskDownloadLibraries implements ITask
         {
             String version = OurCraftLauncher.instance.remoteConfig.getStringValue("version");
             String path = "OurCraft-" + version + ".jar";
-            File ourcraftBinFile = new File(OperatingSystem.getOperatingSystem().getBaseDir() + File.separator + "versions" + File.separator + version + File.separator + path);
+            File ourcraftBinFile = new File(OurCraftLauncher.getFolder().getAbsolutePath() + File.separator + "versions" + File.separator + version + File.separator + path);
             String url = "https://drone.io/github.com/OurCraft/OurCraft/files/build/libs/" + path;
             taskProgress = "Downloading " + path + " from " + url;
             System.out.println("[OurCraft Launcher] " + taskProgress);
@@ -62,7 +62,7 @@ public class TaskDownloadLibraries implements ITask
                 FileUtils.copyURLToFile(new URL(url), ourcraftBinFile);
 
             String spongeAPI = OurCraftLauncher.instance.remoteConfig.getStringValue("SpongeAPI-lib");
-            File spongeBinFile = new File(OperatingSystem.getOperatingSystem().getBaseDir() + File.separator + "libraries/sponge/SpongeAPI.jar");
+            File spongeBinFile = new File(OurCraftLauncher.getFolder().getAbsolutePath() + File.separator + "libraries/sponge/SpongeAPI.jar");
             String spongeURL = "https://drone.io/github.com/OurCraft/OurCraft/files/" + spongeAPI;
             taskProgress = "Downloading " + spongeAPI + " from " + spongeURL;
             System.out.println("[OurCraft Launcher] " + taskProgress);
@@ -77,6 +77,6 @@ public class TaskDownloadLibraries implements ITask
 
     public File getDestDir(String path)
     {
-        return new File(OperatingSystem.getOperatingSystem().getBaseDir() + File.separator + "libraries" + File.separator + path.replace('/', File.separatorChar));
+        return new File(OurCraftLauncher.getFolder().getAbsolutePath() + File.separator + "libraries" + File.separator + path.replace('/', File.separatorChar));
     }
 }

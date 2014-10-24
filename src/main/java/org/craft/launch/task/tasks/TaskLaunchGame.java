@@ -42,7 +42,7 @@ public class TaskLaunchGame implements ITask
     public void execute()
     {
         String version = OurCraftLauncher.instance.remoteConfig.getStringValue("version");
-        String filePath = OperatingSystem.getOperatingSystem().getBaseDir().getAbsolutePath() + File.separator + "versions" + File.separator + version + File.separator + "OurCraft-" + version + ".jar";
+        String filePath = OurCraftLauncher.getFolder().getAbsolutePath() + File.separator + "versions" + File.separator + version + File.separator + "OurCraft-" + version + ".jar";
         System.out.print("Adding " + filePath + " to classpath");
         try
         {
@@ -51,16 +51,17 @@ public class TaskLaunchGame implements ITask
                 String split[] = node.getStringValue().split(":");
                 String path = split[0].replace('.', '/') + "/" + split[1] + "/" + split[2] + "/" + split[1] + "-" + split[2];
                 path += ".jar";
-                injectIntoClasspath(OperatingSystem.getOperatingSystem().getBaseDir() + File.separator + "libraries" + File.separator + path.replace('/', File.separatorChar));
+                injectIntoClasspath(OurCraftLauncher.getFolder().getAbsolutePath() + File.separator + "libraries" + File.separator + path.replace('/', File.separatorChar));
             }
             injectIntoClasspath(filePath);
-            injectIntoClasspath(OperatingSystem.getOperatingSystem().getBaseDir() + File.separator + "libraries" + File.separator + "sponge/SpongeAPI.jar");
+            injectIntoClasspath(OurCraftLauncher.getFolder().getAbsolutePath() + File.separator + "libraries" + File.separator + "sponge/SpongeAPI.jar");
 
+            LWJGLSetup.load(new File(OurCraftLauncher.getFolder(), "natives"));
             String main = OurCraftLauncher.instance.remoteConfig.getStringValue("main");
             Class<?> clazz = Class.forName(main.split(":")[0]);
             HashMap<String, String> properties = new HashMap<String, String>();
             properties.put("username", username);
-            properties.put("gamefolder", OperatingSystem.getOperatingSystem().getBaseDir().getAbsolutePath());
+            properties.put("gamefolder", OurCraftLauncher.getFolder().getAbsolutePath());
             Method startMethod = clazz.getMethod(main.split(":")[1], HashMap.class);
             startMethod.setAccessible(true);
             startMethod.invoke(null, properties);
