@@ -1,6 +1,6 @@
 {
-    "main":"org.craft.client.start.OurCraftStartup:start",
     "version":"InDev-0.1",
+    "main":"org.craft.client.start.OurCraftStartup:start",
     "libraries":
     [
         "org.lwjgl.lwjgl:lwjgl_util:2.9.1",
