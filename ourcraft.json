@@ -1,6 +1,7 @@
 {
     "version":"InDev-0.1",
     "main":"org.craft.client.start.OurCraftStartup:start",
+    "SpongeAPI-lib":"SpongeAPI/build/libs/spongeapi-1.0.0-SNAPSHOT.jar",
     "libraries":
     [
         "org.lwjgl.lwjgl:lwjgl_util:2.9.1",

@@ -60,6 +60,14 @@ public class TaskDownloadLibraries implements ITask
             System.out.println("[OurCraft Launcher] " + taskProgress);
             if(!ourcraftBinFile.exists())
                 FileUtils.copyURLToFile(new URL(url), ourcraftBinFile);
+
+            String spongeAPI = OurCraftLauncher.instance.remoteConfig.getStringValue("SpongeAPI-lib");
+            File spongeBinFile = new File(OperatingSystem.getOperatingSystem().getBaseDir() + File.separator + "libraries/sponge/SpongeAPI.jar");
+            String spongeURL = "https://drone.io/github.com/OurCraft/OurCraft/files/" + spongeAPI;
+            taskProgress = "Downloading " + spongeAPI + " from " + spongeURL;
+            System.out.println("[OurCraft Launcher] " + taskProgress);
+            if(!spongeBinFile.exists())
+                FileUtils.copyURLToFile(new URL(spongeURL), spongeBinFile);
         }
         catch(Exception e)
         {

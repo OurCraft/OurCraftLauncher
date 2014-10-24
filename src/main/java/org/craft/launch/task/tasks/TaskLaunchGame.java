@@ -5,6 +5,8 @@ import java.lang.reflect.*;
 import java.net.*;
 import java.util.*;
 
+import argo.jdom.*;
+
 import org.craft.launch.*;
 import org.craft.launch.task.*;
 
@@ -40,19 +42,20 @@ public class TaskLaunchGame implements ITask
     public void execute()
     {
         String version = OurCraftLauncher.instance.remoteConfig.getStringValue("version");
-        String filePath = OperatingSystem.getOperatingSystem().getBaseDir().getAbsolutePath() + File.separator + version + File.separator + "OurCraft-" + version + ".jar";
+        String filePath = OperatingSystem.getOperatingSystem().getBaseDir().getAbsolutePath() + File.separator + "versions" + File.separator + version + File.separator + "OurCraft-" + version + ".jar";
+        System.out.print("Adding " + filePath + " to classpath");
         try
         {
-            URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
-            Method addURL = URLClassLoader.class.getDeclaredMethod("addURL", new Class<?>[]
+            for(JsonNode node : OurCraftLauncher.instance.remoteConfig.getArrayNode("libraries"))
             {
-                    URL.class
-            });
-            addURL.setAccessible(true);
-            addURL.invoke(classLoader, new Object[]
-            {
-                    new File(filePath).toURI().toURL()
-            });
+                String split[] = node.getStringValue().split(":");
+                String path = split[0].replace('.', '/') + "/" + split[1] + "/" + split[2] + "/" + split[1] + "-" + split[2];
+                path += ".jar";
+                injectIntoClasspath(OperatingSystem.getOperatingSystem().getBaseDir() + File.separator + "libraries" + File.separator + path.replace('/', File.separatorChar));
+            }
+            injectIntoClasspath(filePath);
+            injectIntoClasspath(OperatingSystem.getOperatingSystem().getBaseDir() + File.separator + "libraries" + File.separator + "sponge/SpongeAPI.jar");
+
             String main = OurCraftLauncher.instance.remoteConfig.getStringValue("main");
             Class<?> clazz = Class.forName(main.split(":")[0]);
             HashMap<String, String> properties = new HashMap<String, String>();
@@ -67,5 +70,19 @@ public class TaskLaunchGame implements ITask
             e.printStackTrace();
         }
 
+    }
+
+    private void injectIntoClasspath(String path) throws Exception
+    {
+        URLClassLoader classLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+        Method addURL = URLClassLoader.class.getDeclaredMethod("addURL", new Class<?>[]
+        {
+                URL.class
+        });
+        addURL.setAccessible(true);
+        addURL.invoke(classLoader, new Object[]
+        {
+                new File(path).toURI().toURL()
+        });
     }
 }
