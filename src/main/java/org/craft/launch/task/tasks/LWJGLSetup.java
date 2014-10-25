@@ -101,7 +101,7 @@ public class LWJGLSetup
     {
         try
         {
-            String[] split = fileName.split("" + File.separatorChar);
+            String[] split = fileName.split("/");
             FileOutputStream out = new FileOutputStream(new File(folder, split[split.length - 1]));
             IOUtils.copy(LWJGLSetup.class.getResourceAsStream("/" + fileName), out);
             out.flush();
