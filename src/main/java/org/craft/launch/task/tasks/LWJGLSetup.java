@@ -26,14 +26,14 @@ public class LWJGLSetup
                 {
                     if(!new File(folder.getPath() + "/jinput-dx8_64.dll").exists())
                     {
-                        extractFromClasspath("jinput-dx8_64.dll", folder);
-                        extractFromClasspath("jinput-dx8.dll", folder);
-                        extractFromClasspath("jinput-raw_64.dll", folder);
-                        extractFromClasspath("jinput-raw.dll", folder);
-                        extractFromClasspath("lwjgl.dll", folder);
-                        extractFromClasspath("lwjgl64.dll", folder);
-                        extractFromClasspath("OpenAL32.dll", folder);
-                        extractFromClasspath("OpenAL64.dll", folder);
+                        extractFromClasspath("windows/jinput-dx8_64.dll", folder);
+                        extractFromClasspath("windows/jinput-dx8.dll", folder);
+                        extractFromClasspath("windows/jinput-raw_64.dll", folder);
+                        extractFromClasspath("windows/jinput-raw.dll", folder);
+                        extractFromClasspath("windows/lwjgl.dll", folder);
+                        extractFromClasspath("windows/lwjgl64.dll", folder);
+                        extractFromClasspath("windows/OpenAL32.dll", folder);
+                        extractFromClasspath("windows/OpenAL64.dll", folder);
                     }
                     else
                     {
@@ -44,10 +44,10 @@ public class LWJGLSetup
                 {
                     if(!new File(folder.getPath() + "/liblwjgl.so").exists())
                     {
-                        extractFromClasspath("liblwjgl.so", folder);
-                        extractFromClasspath("liblwjgl64.so", folder);
-                        extractFromClasspath("libopenal.so", folder);
-                        extractFromClasspath("libopenal64.so", folder);
+                        extractFromClasspath("solaris/liblwjgl.so", folder);
+                        extractFromClasspath("solaris/liblwjgl64.so", folder);
+                        extractFromClasspath("solaris/libopenal.so", folder);
+                        extractFromClasspath("solaris/libopenal64.so", folder);
                     }
                     else
                     {
@@ -59,10 +59,10 @@ public class LWJGLSetup
                 {
                     if(!new File(folder.getPath() + "/liblwjgl.so").exists())
                     {
-                        extractFromClasspath("liblwjgl.so", folder);
-                        extractFromClasspath("liblwjgl64.so", folder);
-                        extractFromClasspath("libopenal.so", folder);
-                        extractFromClasspath("libopenal64.so", folder);
+                        extractFromClasspath("linux/liblwjgl.so", folder);
+                        extractFromClasspath("linux/liblwjgl64.so", folder);
+                        extractFromClasspath("linux/libopenal.so", folder);
+                        extractFromClasspath("linux/libopenal64.so", folder);
                     }
                     else
                     {
@@ -74,9 +74,9 @@ public class LWJGLSetup
                 {
                     if(!new File(folder.getPath() + "/openal.dylib").exists())
                     {
-                        extractFromClasspath("liblwjgl.jnilib", folder);
-                        extractFromClasspath("liblwjgl-osx.jnilib", folder);
-                        extractFromClasspath("openal.dylib", folder);
+                        extractFromClasspath("macosx/liblwjgl.jnilib", folder);
+                        extractFromClasspath("macosx/liblwjgl-osx.jnilib", folder);
+                        extractFromClasspath("macosx/openal.dylib", folder);
                     }
                     else
                     {
