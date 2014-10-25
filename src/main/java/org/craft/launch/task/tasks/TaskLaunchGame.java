@@ -78,7 +78,7 @@ public class TaskLaunchGame implements ITask
             ProcessBuilder processBuilder = new ProcessBuilder(launchArgs);
             OurCraftLauncher.instance.dispose();
             int exitCode = processBuilder.inheritIO().start().waitFor();
-            System.exit(exitCode);
+            System.err.print("Game exited with code: " + exitCode);
         }
         catch(Exception e)
         {
