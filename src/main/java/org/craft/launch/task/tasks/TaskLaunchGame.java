@@ -76,7 +76,9 @@ public class TaskLaunchGame implements ITask
 
             LWJGLSetup.load(new File(OurCraftLauncher.getFolder().getAbsolutePath() + "/natives/"));
             ProcessBuilder processBuilder = new ProcessBuilder(launchArgs);
-            processBuilder.inheritIO().start();
+            OurCraftLauncher.instance.dispose();
+            int exitCode = processBuilder.inheritIO().start().waitFor();
+            System.exit(exitCode);
         }
         catch(Exception e)
         {

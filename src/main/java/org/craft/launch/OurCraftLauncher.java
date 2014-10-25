@@ -34,7 +34,6 @@ public class OurCraftLauncher extends JFrame
         setTitle("OurCraft Launcher");
         setSize(854, 480);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         background = new GuiBackground();
