@@ -65,6 +65,7 @@ public class TaskLaunchGame implements ITask
             properties.put("nativesFolder", OurCraftLauncher.getFolder().getAbsolutePath() + "/natives/");
             ArrayList<String> launchArgs = new ArrayList<String>();
             launchArgs.add("java");
+            launchArgs.add("-Djava.system.class.loader=org.craft.OurClassLoader");
             launchArgs.add("-cp");
             launchArgs.add(classpath);
             launchArgs.add(main);
